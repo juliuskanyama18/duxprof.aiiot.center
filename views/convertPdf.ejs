@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>View PDF</title>
+  <link rel="stylesheet" href="/styles/convertPdfStyles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+</head>
+
+<body>
+  <div class="header">
+    <div class="header-logo">
+      <img src="../assets/images/air-logo.png" alt="">
+    </div>
+
+    <div class="header-action-bar">
+
+
+      <div class="username">
+      </div>
+      <div class="user-image">
+        <img src="/images/chatBotIcon.jpeg" alt="">
+      </div>
+      <div class="logout-button" onclick="logoutDialog()">
+        <img class='icon' src="../assets/icons/fi/fi-rr-arrow-right-to-bracket.svg" alt="" class="regular-icon">
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="sidebar">
+    <h2 class="medium-title">Student Panel</h2>
+
+    <div class="two-column-grid">
+      <a class="ad-link" target="_blank" href="https://www.bing.com/create">
+        <img src="../assets/icons/fi/fi-rr-square-star.svg">
+        <p>AI Image Creator</p>
+      </a>
+
+      <a class="ad-link bg-blue" target="_blank"
+        href="https://www.bing.com/search?toWww=1&redig=0F5576DEB42544F78DFCAACCBF98A1CD&q=Bing+AI&showconv=1">
+        <img src="../assets/icons/fi/fi-rr-message-quote.svg">
+        <p>AI Chat</p>
+      </a>
+    </div>
+
+    <div class="sidebar-menu">
+      <a class="sidebar-link" data-id="Dashboard" href="#">
+        <img src="../assets/icons/fi/fi-rr-user.svg" alt="">
+        <p>Home</p>
+      </a>
+
+      <a class="sidebar-link" data-id="Courses" href="#">
+        <img src="../assets/icons/fi/fi-rr-braille.svg" alt="">
+        <p>Courses</p>
+      </a>
+
+      <a class="sidebar-link" data-id="Exam" href="">
+        <img src="../assets/icons/fi/fi-rr-pen-circle.svg" alt="">
+        <p><text>Exam</text></p>
+      </a>
+
+      <a class="sidebar-link" data-id="Classroom" href="">
+        <img src="../assets/icons/fi/fi-rr-laptop.svg" alt="">
+        <p>Classroom</p>
+      </a>
+
+      <a class="sidebar-link" data-id="Grades" href="">
+        <img src="../assets/icons/fi/fi-rr-chart-histogram.svg" alt="">
+        <p>Grades</p>
+      </a>
+
+      <a class="sidebar-link" data-id="Timetable" href="">
+        <img src="../assets/icons/fi/fi-rr-calendar.svg" alt="">
+        <text>Timetable</text>
+      </a>
+
+      <a class="sidebar-link" data-id="Documents" href="">
+        <img src="../assets/icons/fi/fi-rr-document.svg" alt="">
+        <p>E-book</p>
+      </a>
+      <a class="sidebar-link" data-id="Messaging" href="">
+        <img src="../assets/icons/fi/fi-rr-envelope.svg" alt="">
+        <p><text>Messaging</text></p>
+      </a>
+
+      <a class="sidebar-link" data-id="Settings" href="">
+        <img src="../assets/icons/fi/fi-rr-add.svg" alt="">
+        <p><text>Settings</text></p>
+      </a>
+
+
+    </div>
+
+    <div class="gtranslate_wrapper" onclick="setCurrentLanguage()"></div>
+    <script>
+      window.gtranslateSettings = {
+        "default_language": "en",
+        "languages": ["en", "tr"],
+        "wrapper_selector": ".gtranslate_wrapper",
+        "switcher_horizontal_position": "left",
+        "switcher_vertical_position": "bottom",
+        "float_switcher_open_direction": "bottom",
+        "flag_style": "3d"
+      }
+    </script>
+    <script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <div>
+    <label for="language-select">Choose Language:</label>
+    <select id="language-select">
+      <option value="en">English</option>
+      <option value="tr">Turkish</option>
+    </select>
+  </div> -->
+  <div id="pdf-container"></div>
+  <div id="chat-icon" class="chat-icon">
+    <img src="/images/chatBotIcon.jpeg" alt="apple" style="width:100px;height:50; border-radius: 50% !important;" />
+  </div>
+  <div id="chat-container" class="chat-container hidden">
+    <div class="chat-header">AI Step by Step Solver</div>
+    <div id="chat-messages" class="chat-messages"></div>
+    <textarea id="chat-textarea" rows="4" placeholder="How can I help you...?"></textarea>
+    <button id="chat-submit" class="chat-submit">Submit</button>
+  </div>
+
+  <script>
+    // Include the language and PDF name variables in the script
+    window.pdfName = "<%= pdfName %>";
+    window.language = "<%= language %>";
+  </script>
+  <script src="/scripts/convertPdf.js"></script>
+</body>
+
+</html>

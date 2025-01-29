@@ -1,0 +1,311 @@
+#pdf-container {
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  user-select: text;
+}
+
+canvas {
+  display: block;
+  margin: 0 auto;
+}
+
+/* Basic styles for the chat icon */
+body {
+  margin: 0;
+  user-select: text;
+
+}
+
+
+
+.chat-icon {
+  position: fixed;
+  bottom: 50px;
+  right: 70px;
+  border-radius: 50% !important;
+  /* Ensure the element is round */
+  width: 50px;
+  /* Set width */
+  height: 50px;
+  /* Set height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 24px;
+  /* Adjust font size */
+  z-index: 1000;
+  /* Ensure it's above other elements */
+}
+
+
+/* Styles for the chat container */
+.chat-container {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 500px;
+  /* Adjusted to fit better on screen */
+  height: 600px;
+  /* Adjusted to fit better on screen */
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  /* Ensure it's above other elements */
+}
+
+.chat-header {
+  background-color: #6F2036;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  /* Ensure there's space between messages and textarea */
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-message {
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 10px;
+  max-width: 80%;
+  word-wrap: break-word;
+  /* Ensure long words break to the next line */
+  display: inline-block;
+}
+
+.user-message {
+  background-color: #6F2036;
+  color: white;
+  align-self: flex-end;
+}
+
+.response-message {
+  background-color: #e0e0e0;
+  color: black;
+  align-self: flex-start;
+}
+
+textarea {
+  border: 1px solid 6F2036;
+  border-top: 1px solid #6F2036;
+  padding: 10px;
+  resize: none;
+  width: calc(100% - 32px);
+  /* Adjusted width */
+  margin: 0 10px 10px 10px;
+  /* Adjust margin to fit within the container */
+  box-sizing: border-box;
+  /* Include padding and border in the element's total width and height */
+  z-index: 1000;
+  /* Ensure it's above other elements */
+  font-size: large;
+}
+
+.chat-submit {
+  background-color: #6F2036;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-top: 1px solid #6F2036;
+  margin: 0 10px 10px 10px;
+  /* Adjust margin to fit within the container */
+  box-sizing: border-box;
+  /* Include padding and border in the element's total width and height */
+  z-index: 1000;
+  /* Ensure it's above other elements */
+}
+
+.hidden {
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.sidebar {
+  display: none;
+  width: 300px;
+  border-right: 1.5px solid var(--border-fade);
+  height: calc(100vh - 65px);
+  display: grid;
+  float: left;
+  overflow: hidden;
+  grid-gap: 20px;
+  padding: 20px;
+  justify-items: center;
+  align-items: start;
+  grid-template-rows: auto auto 1fr;
+
+  position: fixed;
+  top: 65px;
+  overflow: scroll;
+  padding-bottom: 100px;
+  left: -86%;
+  z-index: 1;
+
+
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+
+.sidebar-menu {
+  display: grid;
+  grid-gap: 5px;
+  width: 60%;
+}
+
+.sidebar-link {
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  padding: 12px;
+  color: var(--accent);
+  font-weight: 400;
+  font-size: 0.9em;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 13px;
+  text-decoration: none;
+}
+
+
+.sidebar-link img {
+  height: 20px;
+  filter: invert(17%) sepia(35%) saturate(2414%) hue-rotate(308deg) brightness(96%) contrast(96%);
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+  color: white;
+  background: #6F2036;
+  transition: 0.3s all;
+  font-weight: 600;
+}
+
+.sidebar-link:hover img,
+.sidebar-link.active img {
+  filter: invert(100%);
+}
+
+.ad-link {
+  background: linear-gradient(90deg, #ff2352, #f6186a, #e71383);
+  color: white;
+  width: 100%;
+  border-radius: 10px;
+  display: grid;
+  padding: 13px;
+  grid-gap: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  justify-self: center;
+  margin-bottom: 10px;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+
+  -moz-user-select: none;
+  user-select: none;
+  -o-user-select: none;
+  -webkit-user-select: none;
+}
+
+.ad-link>p {
+  z-index: 1;
+}
+
+.ad-link img {
+  filter: invert(100%);
+  position: absolute;
+  height: 50px;
+  top: -10px;
+  left: -10px;
+  z-index: 0;
+  opacity: 0.2;
+}
+
+.bg-blue {
+  background: linear-gradient(90deg, #3e79ee, #749cec, rgba(165, 190, 238, 1));
+}
+
+
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+  position: fixed;
+  width: 100%;
+  /* Adjust width to account for the sidebar */
+  top: 0;
+  left: 0px;
+  /* Adjust left position to account for the sidebar */
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-logo img {
+  height: 40px;
+}
+
+.header-action-bar {
+  display: flex;
+  align-items: center;
+}
+
+.header-action-bar .username {
+  margin-right: 10px;
+}
+
+.header-action-bar .user-image img {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.header-action-bar .logout-button {
+  cursor: pointer;
+}
+
+.logout-button img {
+  height: 25px;
+  /* Set a specific height */
+  width: 80px;
+  /* Set a specific width */
+}

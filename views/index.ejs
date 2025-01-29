@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="title">Upload PDF</title>
+  <link rel="stylesheet" href="styles/indexStyles.css" />
+</head>
+
+<body>
+  
+
+    <section class="course-management">
+      <form id="upload-form" enctype="multipart/form-data">
+        <input type="file" id="pdf-file" name="pdfFile" accept=".pdf">
+        <button type="submit" class="green-btn">Upload PDF</button>
+      </form>
+    </section>
+
+
+
+    <div class="header">
+      <div class="header-logo">
+        <img src="../assets/images/air-logo.png" alt="">
+      </div>
+  
+      <div class="header-action-bar">
+  
+  
+        <div class="username">
+        </div>
+        <div class="user-image">
+          <img src="/images/chatBotIcon.jpeg" alt="">
+        </div>
+        <div class="logout-button" onclick="logoutDialog()">
+          <img class='icon' src="../assets/icons/fi/fi-rr-arrow-right-to-bracket.svg" alt="" class="regular-icon">
+        </div>
+      </div>
+    </div>
+  
+  
+  
+  
+    <div class="sidebar">
+      <h2 class="medium-title">Student Panel</h2>
+  
+      <div class="two-column-grid">
+        <a class="ad-link" target="_blank" href="https://www.bing.com/create">
+          <img src="../assets/icons/fi/fi-rr-square-star.svg">
+          <p>AI Image Creator</p>
+        </a>
+  
+        <a class="ad-link bg-blue" target="_blank"
+          href="https://www.bing.com/search?toWww=1&redig=0F5576DEB42544F78DFCAACCBF98A1CD&q=Bing+AI&showconv=1">
+          <img src="../assets/icons/fi/fi-rr-message-quote.svg">
+          <p>AI Chat</p>
+        </a>
+      </div>
+  
+      <div class="sidebar-menu">
+        <a class="sidebar-link" data-id="Dashboard" href="index.php">
+          <img src="../assets/icons/fi/fi-rr-user.svg" alt="">
+          <p>Home</p>
+        </a>
+  
+        <a class="sidebar-link" data-id="Courses" href="Courses.php">
+          <img src="../assets/icons/fi/fi-rr-braille.svg" alt="">
+          <p>Courses</p>
+        </a>
+  
+        <a class="sidebar-link" data-id="Exam" href="Exam.php">
+          <img src="../assets/icons/fi/fi-rr-pen-circle.svg" alt="">
+          <p><text>Exam</text></p>
+        </a>
+  
+        <a class="sidebar-link" data-id="Classroom" href="Classroom.php">
+          <img src="../assets/icons/fi/fi-rr-laptop.svg" alt="">
+          <p>Classroom</p>
+        </a>
+  
+        <a class="sidebar-link" data-id="Grades" href="Grades.php">
+          <img src="../assets/icons/fi/fi-rr-chart-histogram.svg" alt="">
+          <p>Grades</p>
+        </a>
+  
+        <a class="sidebar-link" data-id="Timetable" href="Timetable.php">
+          <img src="../assets/icons/fi/fi-rr-calendar.svg" alt="">
+          <text>Timetable</text>
+        </a>
+  
+        <a class="sidebar-link" data-id="Documents" href="Documents.php">
+          <img src="../assets/icons/fi/fi-rr-document.svg" alt="">
+          <p>E-book</p>
+        </a>
+        <a class="sidebar-link" data-id="Messaging" href="Messaging.php">
+          <img src="../assets/icons/fi/fi-rr-envelope.svg" alt="">
+          <p><text>Messaging</text></p>
+        </a>
+  
+        <a class="sidebar-link" data-id="Settings" href="Settings.php">
+          <img src="../assets/icons/fi/fi-rr-add.svg" alt="">
+          <p><text>Settings</text></p>
+        </a>
+  
+  
+      </div>
+  
+      <div class="gtranslate_wrapper" onclick="setCurrentLanguage()"></div>
+      <script>
+        window.gtranslateSettings = {
+          "default_language": "en",
+          "languages": ["en", "tr"],
+          "wrapper_selector": ".gtranslate_wrapper",
+          "switcher_horizontal_position": "left",
+          "switcher_vertical_position": "bottom",
+          "float_switcher_open_direction": "bottom",
+          "flag_style": "3d"
+        }
+      </script>
+      <script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+    </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="scripts/indexScript.js"></script>
+</body>
+
+</html>
