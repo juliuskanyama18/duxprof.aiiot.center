@@ -291,4 +291,9 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         console.error("pdfjsLib is not defined. PDF.js library may not be loaded correctly.");
     }
+    
+    const chatCloseButton = document.getElementById("chat-close");
+    chatCloseButton.addEventListener('click', () => {
+        chatContainer.classList.add('hidden');
+    });
 });
