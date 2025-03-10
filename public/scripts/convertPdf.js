@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("PDF Name:", window.pdfName);
-
     const fileName = window.pdfName;
     const language = window.language || 'en'; // Default to English if not set
     console.log("Detected language on client side:", language);
@@ -13,44 +12,16 @@ document.addEventListener("DOMContentLoaded", function () {
     // let currentLanguage = localStorage.getItem('language') || 'en';
     let translations = {};
 
-
     document.addEventListener("mousedown", function (event) {
         event.stopPropagation();
     }, true);
 
-    // async function loadTranslations(lang) {
-    //     try {
-    //         const response = await fetch(`/translations/${lang}`);
-    //         if (!response.ok) {
-    //             throw new Error('Error loading translations');
-    //         }
-    //         translations = await response.json();
-    //         applyTranslations();
-    //     } catch (error) {
-    //         console.error('Error loading translations:', error);
-    //     }
-    // }
 
-    // function applyTranslations() {
-    //     document.querySelector('.chat-header').innerText = translations['chat-header'] || 'AI Step by Step Solver';
-    //     document.getElementById('chat-textarea').placeholder = translations['chat-placeholder'] || 'How can I help you...?';
-    //     document.getElementById('chat-submit').innerText = translations['chat-submit'] || 'Submit';
-    // }
-
-    // loadTranslations(currentLanguage);
-    // languageSelect.value = currentLanguage;
-
-    // languageSelect.addEventListener('change', (event) => {
-    //     currentLanguage = event.target.value;
-    //     loadTranslations(currentLanguage);
-    //     localStorage.setItem('language', currentLanguage);
-    // });
 
     console.log(`Loading PDF from: ${pdfPath}`);
 
     const pdfContainer = document.getElementById("pdf-container");
     const chatIcon = document.getElementById("chat-icon");
-
     pdfContainer.style.display = "block";
     chatIcon.style.display = "block";
 
@@ -66,7 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     const context = canvas.getContext("2d");
                     canvas.height = viewport.height;
                     canvas.width = viewport.width;
-
                     page.render({
                         canvasContext: context,
                         viewport: viewport,
@@ -78,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     }).catch((error) => {
                         console.error(`Error rendering page ${pageNum}:`, error);
                     });
-
                     page.getTextContent().then((textContent) => {
                         let text = textContent.items.map(item => item.str).join(' ');
                         extractedTextByPage[pageNum] = text;
@@ -89,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.error(`Error fetching page ${pageNum}:`, error);
                 });
             };
-
             renderPage(1);
         }).catch((error) => {
             console.error("Error loading PDF:", error);
@@ -119,13 +87,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 ]
             }
         };
-
         function getResponses(language) {
             return responses[language] || responses.en; // Fallback to English if language is not supported
         }
-
         const chatResponses = getResponses(language);
-
         function displayMessage(message, className) {
             const chatMessages = document.getElementById("chat-messages");
             const messageElement = document.createElement("div");
@@ -134,13 +99,11 @@ document.addEventListener("DOMContentLoaded", function () {
             chatMessages.appendChild(messageElement);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
-
         function displayInitialMessage() {
             const initialMessages = chatResponses.initialMessages;
             const initialMessage = initialMessages[Math.floor(Math.random() * initialMessages.length)];
             displayMessage(initialMessage, 'response-message');
         }
-
         chatIcon.addEventListener("click", () => {
             chatContainer.classList.toggle("hidden");
             if (isFirstMessage) {
@@ -152,45 +115,139 @@ document.addEventListener("DOMContentLoaded", function () {
         // Trigger the click event automatically when the page is loaded
         chatIcon.dispatchEvent(new MouseEvent('click'));
 
+        // Predefined responses for small talk and greetings
+        const predefinedResponses = {
+            "hello": "Hello! How can I assist you?",
+            "hey": "Hello! How can I assist you?",
+            "hi": "Hi there! What would you like to know?",
+            "how are you": "I'm just a chatbot, but I'm here to help you!",
+            "good morning": "Good morning! What can I do for you?",
+            "good evening": "Good evening! Need any assistance?",
+            "what's up": "Not much, just here to help you with your queries!"
+        };
 
-        chatSubmit.addEventListener("click", async () => {
+        function getPredefinedResponse(userInput) {
+            const normalizedInput = userInput.toLowerCase().trim();
+            return predefinedResponses[normalizedInput] || null;
+        }
+        // Store the conversation history in a local array
+        let conversationHistory = [];
+
+        // chatSubmit.addEventListener("click", async () => {
+        //     const userInput = document.getElementById("chat-textarea").value.trim();
+
+        //     if (userInput !== "") {
+        //         displayMessage(userInput, 'user-message');
+        //         document.getElementById("chat-textarea").value = "";
+
+        //         // Add user's input to conversation history
+        //         conversationHistory.push({ role: 'user', content: userInput });
+
+        //         setTimeout(async () => {
+        //             try {
+        //                 // Check for predefined response first
+        //                 const predefinedResponse = getPredefinedResponse(userInput);
+        //                 if (predefinedResponse) {
+        //                      displayMessage(predefinedResponse, 'response-message');
+        //                      conversationHistory.push({ role: 'assistant', content: predefinedResponse });
+        //                     return;
+        //                 }
+        //                 // Search for the query in the extracted text
+        //                 const matchedSection = searchForQuery(userInput, extractedTextByPage);
+        //                 console.log("Matched Section:", matchedSection); // Add this line to log matchedSection
+
+        //                 let responseMessage; //
+
+
+        //                 if (!matchedSection) {
+        //                     const responseMessage = translations['no-relevant-content'] || "I couldn't find relevant content from the document.";
+        //                     displayMessage(responseMessage, 'response-message');
+        //                     conversationHistory.push({ role: 'assistant', content: responseMessage });
+        //                     return;
+        //                 }
+
+        //                 const responseMessage = await generateResponse(userInput, matchedSection, conversationHistory);
+        //                 const formattedResponse = formatResponse(responseMessage);
+        //                 displayMessage(formattedResponse, 'response-message');
+
+        //                 // Save AI response to conversation history
+        //                 conversationHistory.push({ role: 'assistant', content: responseMessage });
+
+        //             } catch (error) {
+        //                 const errorMessage = translations['error-response'] || "Sorry, there was an error getting a response.";
+        //                 displayMessage(errorMessage, 'response-message');
+        //                 conversationHistory.push({ role: 'assistant', content: errorMessage });
+        //             }
+        //         }, 1000);
+        //     } else {
+        //         alert(translations['empty-message-alert'] || "Please enter a message.");
+        //     }
+        //     console.log("Conversation History:", conversationHistory);
+        // });
+
+        chatSubmit.addEventListener("click", async () => { 
             const userInput = document.getElementById("chat-textarea").value.trim();
-
+        
             if (userInput !== "") {
                 displayMessage(userInput, 'user-message');
                 document.getElementById("chat-textarea").value = "";
-
+        
+                // Add user's input to conversation history
+                conversationHistory.push({ role: 'user', content: userInput });
+        
                 setTimeout(async () => {
                     try {
-                        const matchedSection = searchForQuery(userInput, extractedTextByPage);
-                        console.log("Matched Section:", matchedSection); // Add this line to log matchedSection
-                        if (!matchedSection) {
-                            const responseMessage = translations['no-relevant-content'] || "No relevant content found. Please rephrase your question.";
-                            displayMessage(responseMessage, 'response-message');
+                        // Check for predefined response first
+                        const predefinedResponse = getPredefinedResponse(userInput);
+                        if (predefinedResponse) {
+                            displayMessage(predefinedResponse, 'response-message');
+                            conversationHistory.push({ role: 'assistant', content: predefinedResponse });
                             return;
                         }
-
-                        const responseMessage = await generateResponse(userInput, matchedSection);
+        
+                        // Search for relevant PDF content
+                        const matchedSection = searchForQuery(userInput, extractedTextByPage);
+                        console.log("Matched Section:", matchedSection); 
+        
+                        let responseMessage;
+                        
+                        if (matchedSection) {
+                            // Found relevant PDF content
+                            responseMessage = await generateResponse(userInput, matchedSection, conversationHistory);
+                        } else {
+                            // No relevant content found, but continue the conversation
+                            console.log("No matched section found, using conversation history...");
+                            responseMessage = await generateResponse(userInput, null, conversationHistory);
+                        }
+        
+                        // Format & display response
                         const formattedResponse = formatResponse(responseMessage);
                         displayMessage(formattedResponse, 'response-message');
+        
+                        // Save AI response to conversation history
+                        conversationHistory.push({ role: 'assistant', content: responseMessage });
+        
                     } catch (error) {
-                        displayMessage(translations['error-response'] || "Sorry, there was an error getting a response.", 'response-message');
+                        const errorMessage = translations['error-response'] || "Sorry, there was an error getting a response.";
+                        displayMessage(errorMessage, 'response-message');
+                        conversationHistory.push({ role: 'assistant', content: errorMessage });
                     }
                 }, 1000);
             } else {
                 alert(translations['empty-message-alert'] || "Please enter a message.");
             }
+            console.log("Conversation History:", conversationHistory);
         });
+        
 
-
-        async function generateResponse(message, matchedSection) {
+        async function generateResponse(message, matchedSection, conversationHistory) {
             try {
                 const response = await fetch('/generate-response?pdfName=' + window.pdfName, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ prompt: message, matchedSection })
+                    body: JSON.stringify({ prompt: message, matchedSection, conversationHistory })
                 });
                 if (!response.ok) {
                     const errorResponse = await response.json(); // Get the error response body
@@ -204,7 +261,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 throw error;
             }
         }
-
 
         function searchForQuery(query, textByPage) {
             const cleanQueryString = cleanQuery(query);
@@ -278,7 +334,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 sentence = sentence.trim();
                 let words = sentence.split(' ');
                 let firstFewWords = words.slice(0, 5).join(' ');
-
                 if (/^[A-Z]/.test(sentence) && !/^.{0,25}:/.test(firstFewWords)) {
                     return `\n\n<p>${sentence}</p>\n\n`;
                 }
@@ -291,7 +346,6 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         console.error("pdfjsLib is not defined. PDF.js library may not be loaded correctly.");
     }
-    
     const chatCloseButton = document.getElementById("chat-close");
     chatCloseButton.addEventListener('click', () => {
         chatContainer.classList.add('hidden');
